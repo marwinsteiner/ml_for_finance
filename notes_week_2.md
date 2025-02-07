@@ -23,6 +23,9 @@ Some jargon we will often encounter in ML Literature
     - $R(D, \theta) = \frac{1}{T} \sum_{t = 1}^T L(y_t, f(x_t, \theta))$
     - Estimation/optimization/learning:
         $$\hat{\theta} = argmin_{\theta} R(D, \theta)$$
+    - The most commonly used loss function is the mean squared error, but above we fit or predict a $\hat{Y}$ for given $Y$. For the OLS, the loss function is the mean squared error. 
+    - Above, we show a more generalized loss function to fit to any model. 
+    - We simply take the average of the loss function and minimize it.
 
 ## Classification
 - Very often, the response variable is not a continuous numerical variable. For example, we want to estimate a stock's price is going ot move up or down the next trading day; or we are interested in predicting whether a client would default on a loan or not. In this case, response variable $Y \in \{0, 1\}$ (a binary variable).
@@ -41,16 +44,18 @@ $$Y = \begin{cases}
 
 Can we simply perform a linear regression of $Y$ on $X$ and classify as 'Yes' if $\hat{Y} > 0.5$?
 - To some extent, it does the job for classification since we can make a prediction on $Y$ given $X$.
-- However, the sensitivity of a change in X to Y is the same along the real line (ideally, we want it to be more in the middle and less sensitive at two ends). Furthermore, we are likely to produce probabilities below zero and larger than 1.
+- However, the sensitivity of a change in X to Y is the same along the real line (ideally, we want it to be more in the middle and less sensitive at two ends). Furthermore, we are likely to produce probabilities below zero and larger than 1. This is obviously not possible
 
 Suppose we are using an OLS regression Model
 ![alt text](image-1.png)
 
 ## Logistic Regression
-Let's denote $p(X) = Pr(Y = 1 | X)$ for convenience. Consider the model using 'balance' to predict 'default'. Logistic regression uses the form
+Let's denote $p(X) = P(Y = 1 | X)$ (probability of default given X) for convenience. Consider the model using 'balance' to predict 'default'. Logistic regression uses the form
 $$p(X) = \frac{e^{\beta_0 + \beta_1 X}}{1 + e^{\beta_0 + \beta_1 X}}$$
 
-It is easy to see that the value of $p(X)$ is always restricted between 0 and 1 regardless of the values of $\beta_0$, $\beta_1$, and $X$.
+This is sometimes also called a sigmoid function.
+
+It is easy to see that the value of $p(X)$ is always restricted between 0 and 1 regardless of the values of $\beta_0$, $\beta_1$, and $X$. 
 
 ## Logistic Regression for Classification
 Logistic regression is a better alternative for this task.
@@ -60,7 +65,7 @@ The orange marks indicate the response $Y$, either 0 or 1. Linear regression doe
 - You may think there is a connection between the logistic and OLS models.
 - Rearranging the previous equation, we obtain
 $$log(\frac{p(X)}{1 - p(X)}) = \beta_0 + \beta_1 X$$
-We call this the _logit transformation_ of $p(X)$.
+We call this the _logit transformation_ of $p(X)$. Sometimes this is also known as the generalized linear regression model.
 - We can use the 'fitglm' function from Matlab (setting 'distribution' parameter to 'binomial') to estimate a logistic model (more details in the tutorial).
 
 ## Evaluate Model Performance
@@ -78,7 +83,7 @@ After estimating the model using the training sample and obtained model paramete
     - True Positive Rate (TPR): $TPR = \frac{TP}{TP + FN}$
     - True Negative Rate (TNR): $TNR = \frac{TN}{TN + FP}$
     - False Discovery Rate (FDR): $FDR = \frac{FP}{FP + TP}$
-    - Accuracy: $ACC = \frac{TP + TN}{P + N}$
+    - Accuracy: $ACC = \frac{TP + TN}{P + N}$, which is essentially the true predictions over all the predictions.
 
 ## Example: Predict Bank Churners
 - A bank wants to understand what caused customers to leave (i.e. customers stop transactions with an entity.)
