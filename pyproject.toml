@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "ml-for-finance"
+version = "0.1.0"
+description = ""
+authors = ["Marwin Steiner <marwin.steiner@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+numpy = "^2.2.2"
+jupyter = "^1.1.1"
+jupyterlab = "^4.3.5"
+pandas = "^2.2.3"
+scikit-learn = "^1.6.1"
+matplotlib = "^3.10.0"
+seaborn = "^0.13.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
