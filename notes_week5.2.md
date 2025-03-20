@@ -53,3 +53,29 @@ $$
 - LOOCV is sometimes useful, but typically doesn't _shake up_ the data enough. The estimates from each fold are highly correlated, and hence their average can have high variance.
 - If the sample size is large, LOOCV can be computationally expensive. 
 - Typically, we choose $B = 5$ or $B = 10$.
+
+## The Bootstrap
+- The bootstrap is a flexible and powerful statistical tool that can be used to quantify the uncertainty associated with a given estimator or statistical learning method.
+- For example, it can provide an estimate of the standard error of a coefficient, or a confidence interval for that coeficient.
+
+### Example
+- Suppose that we wish to invest a fixed sum of money in two financial assets that yield returns of X and Y, respectively, where X and Y are random quantities.
+- We will invest a fraction $\alpha$ of our money in X and will invest the remaining $1 - \alpha$ in Y.
+- We wish to choose $\alpha$ to minimize the total risk, or variance, of our investment. In other words, we want to minimize $Var(\alpha X + (1-\alpha)Y)$.
+- One can show that the value that minimizes the risk is given by
+$$\alpha = \frac{Var(Y) - Cov(X, Y)}{Var(X) + Var(Y) - 2Cov(X, Y)}$$
+- However, the values of $Var(X)$, $Var(Y)$, and $Cov(X, Y)$ are unknown.
+- We can compute estimates for these quantities, $\hat{Var(X)}$, $\hat{Var(Y)}$, $\hat{Cov(X, Y)}$, using a data set that contains measurements for X and Y.
+- We can then estimate the value of $\alpha$ that minimize the variance of our investment using
+$$\alpha = \frac{\hat{Var(Y)} - \hat{Cov(X, Y)}}{\hat{Var(X)} + \hat{Var(Y)} - \hat{2Cov(X, Y)}}$$
+
+![alt text](image-18.png)
+
+- To estimate the standard deviation of $\hat{\alpha}$, we repeated the process of simulating 100 paired observations fo X and Y, and estimating $\alpha$ 1000 times.
+- We thereby obtained 1000 estimates for $\alpha$, which we can call $\hat{\alpha}_1, \hat{\alpha}_2,\hat{\alpha}_3, \text{...}, \hat{\alpha}_1000$
+
+![alt text](image-19.png)
+
+- The left-hand panel of the figure displays a histogram of the resulting estimates.
+- For these simulates the parameters were set to $Var(X) = 1$ $Var(Y) = 1.25$, and $Cov(X, Y) = 0.5$ so we know that the true value of $\alpha$ is 0.6 (indicated by the red line).
+
